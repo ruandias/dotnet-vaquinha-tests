@@ -9,23 +9,21 @@ namespace Vaquinha.Domain.Entities
         private Doacao() { }
 
         public Doacao(Guid id, Guid dadosPessoaisId, Guid enderecoCobrancaId, double valor,
-                      Pessoa dadosPessoais, CartaoCredito formaPagamento, Endereco enderecoCobranca)
+                      Pessoa dadosPessoais, CartaoCredito formaPagamento, Endereco enderecoCobranca, bool aceitaTaxa = false)
         {
             Id = id;
             DataHora = DateTime.Now;
-
             DadosPessoaisId = dadosPessoaisId;
+            AceitaTaxa = aceitaTaxa;
             EnderecoCobrancaId = enderecoCobrancaId;
-
-            Valor = valor;
-
+            Valor = aceitaTaxa ? valor * 1.2 : valor;
             DadosPessoais = dadosPessoais;
             FormaPagamento = formaPagamento;
             EnderecoCobranca = enderecoCobranca;
         }
 
         public double Valor { get; private set; }
-
+        public bool AceitaTaxa { get; private set; }
         public Guid DadosPessoaisId { get; private set; }
         public Guid EnderecoCobrancaId { get; private set; }
 
