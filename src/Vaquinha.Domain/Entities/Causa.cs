@@ -1,11 +1,14 @@
 ﻿using System;
+using FluentValidation;
 using Vaquinha.Domain.Base;
 
 namespace Vaquinha.Domain.Entities
 {
     public class Causa : Entity
     {
-        private Causa() { }
+        private Causa()
+        {
+        }
 
         public Causa(Guid id, string nome, string cidade, string estado)
         {
@@ -21,7 +24,28 @@ namespace Vaquinha.Domain.Entities
 
         public override bool Valido()
         {
-            return true;
+            ValidationResult = new CausaValidacao().Validate(this);
+            return ValidationResult.IsValid;
+        }
+    }
+
+    public class CausaValidacao : AbstractValidator<Causa>
+    {
+        private const int MAX_LENTH_CAMPOS = 150;
+
+        public CausaValidacao()
+        {
+            RuleFor(a => a.Nome)
+                .NotEmpty().WithMessage("O campo Nome é obrigatório.")
+                .MaximumLength(MAX_LENTH_CAMPOS).WithMessage("O campo Nome deve possuir no máximo 150 caracteres.");
+
+            RuleFor(a => a.Cidade)
+                .NotEmpty().WithMessage("O campo Cidade é obrigatório.")
+                .MaximumLength(MAX_LENTH_CAMPOS).WithMessage("O campo Cidade deve possuir no máximo 150 caracteres.");
+
+            RuleFor(a => a.Estado)
+                .NotEmpty().WithMessage("O campo Estado é obrigatório.")
+                .MaximumLength(MAX_LENTH_CAMPOS).WithMessage("O campo Estado deve possuir no máximo 150 caracteres.");
         }
     }
 }
