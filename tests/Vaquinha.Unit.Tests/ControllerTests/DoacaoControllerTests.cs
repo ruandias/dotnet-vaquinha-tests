@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NToastNotify;
@@ -18,7 +17,8 @@ namespace Vaquinha.Unit.Tests.ControllerTests
     [Collection(nameof(DoacaoFixtureCollection))]
     public class DoacaoControllerTests : IClassFixture<DoacaoFixture>,
                                         IClassFixture<EnderecoFixture>,
-                                        IClassFixture<CartaoCreditoFixture>
+                                        IClassFixture<CartaoCreditoFixture>,
+                                        IClassFixture<CausaFixture>
     {
         private readonly Mock<IDoacaoRepository> _doacaoRepository = new Mock<IDoacaoRepository>();        
         private readonly Mock<GloballAppConfig> _globallAppConfig = new Mock<GloballAppConfig>();
@@ -26,6 +26,7 @@ namespace Vaquinha.Unit.Tests.ControllerTests
         private readonly DoacaoFixture _doacaoFixture;
         private readonly EnderecoFixture _enderecoFixture;
         private readonly CartaoCreditoFixture _cartaoCreditoFixture;
+        private readonly CausaFixture _causaFixture;
 
         private DoacoesController _doacaoController;
         private readonly IDoacaoService _doacaoService;
@@ -41,11 +42,16 @@ namespace Vaquinha.Unit.Tests.ControllerTests
         private readonly Doacao _doacaoValida;
         private readonly DoacaoViewModel _doacaoModelValida;
 
-        public DoacaoControllerTests(DoacaoFixture doacaoFixture, EnderecoFixture enderecoFixture, CartaoCreditoFixture cartaoCreditoFixture)
+        public DoacaoControllerTests(
+            DoacaoFixture doacaoFixture, 
+            EnderecoFixture enderecoFixture, 
+            CartaoCreditoFixture cartaoCreditoFixture,
+            CausaFixture causaFixture)
         {
             _doacaoFixture = doacaoFixture;
             _enderecoFixture = enderecoFixture;
             _cartaoCreditoFixture = cartaoCreditoFixture;
+            _causaFixture = causaFixture;
 
             _mapper = new Mock<IMapper>();
 
