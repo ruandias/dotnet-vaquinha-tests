@@ -18,7 +18,8 @@ namespace Vaquinha.Unit.Tests.ControllerTests
     public class DoacaoControllerTests : IClassFixture<DoacaoFixture>,
                                         IClassFixture<EnderecoFixture>,
                                         IClassFixture<CartaoCreditoFixture>,
-                                        IClassFixture<CausaFixture>
+                                        IClassFixture<CausaFixture>,
+                                        IClassFixture<PessoaFixture>
     {
         private readonly Mock<IDoacaoRepository> _doacaoRepository = new Mock<IDoacaoRepository>();        
         private readonly Mock<GloballAppConfig> _globallAppConfig = new Mock<GloballAppConfig>();
@@ -27,6 +28,7 @@ namespace Vaquinha.Unit.Tests.ControllerTests
         private readonly EnderecoFixture _enderecoFixture;
         private readonly CartaoCreditoFixture _cartaoCreditoFixture;
         private readonly CausaFixture _causaFixture;
+        private readonly PessoaFixture _pessoaFixture;
 
         private DoacoesController _doacaoController;
         private readonly IDoacaoService _doacaoService;
@@ -46,12 +48,14 @@ namespace Vaquinha.Unit.Tests.ControllerTests
             DoacaoFixture doacaoFixture, 
             EnderecoFixture enderecoFixture, 
             CartaoCreditoFixture cartaoCreditoFixture,
-            CausaFixture causaFixture)
+            CausaFixture causaFixture,
+            PessoaFixture pessoaFixture)
         {
             _doacaoFixture = doacaoFixture;
             _enderecoFixture = enderecoFixture;
             _cartaoCreditoFixture = cartaoCreditoFixture;
             _causaFixture = causaFixture;
+            _pessoaFixture = pessoaFixture;
 
             _mapper = new Mock<IMapper>();
 
